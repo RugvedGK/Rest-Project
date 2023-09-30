@@ -7,24 +7,15 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>Admin Page</h1>
-<form>
-<fieldset>
-<table>
-<tr>
-<th>Email: </th>
-<td><input type="text"></td>
-</tr>
-<tr>
-<th>Password: </th>
-<td><input type="text"></td>
-</tr>
-<tr>
-<th><a><button>Login</button></a></th>
-<td><a><button>Cancle</button></a></td>
-</tr>
-</table>
-</fieldset>
-</form>
-</body>
+	<h1 style="color: green">${pass}</h1>
+	<h1 style="color: red">${fail}</h1>
+	<form action="/admin/login" method="post">
+		Email: <input type="email" name="email" required/><br />
+		<br /> Password: <input type="password" name="password" required/><br />
+		<br /> <a href=""><button>Login</button></a> <a href=""><button
+				type="reset">Cancel</button></a>
+	</form>
+	<br />
+	<a href="/"><button>Back</button></a>
+</body>	
 </html>

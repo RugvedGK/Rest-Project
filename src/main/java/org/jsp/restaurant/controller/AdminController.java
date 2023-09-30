@@ -1,6 +1,5 @@
 package org.jsp.restaurant.controller;
 
-import org.jsp.restaurant.dto.Admin;
 import org.jsp.restaurant.helper.LoginHelper;
 import org.jsp.restaurant.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +14,19 @@ import jakarta.servlet.http.HttpSession;
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
+	
+	@Autowired
+	AdminService service;
 
 	@GetMapping()
 	public String admin()
 	{
 		return "Admin";
+	}
+	
+	@PostMapping("login")
+	public String adminLogin(LoginHelper helper, ModelMap map, HttpSession session) {
+		return service.login(helper, map, session);
 	}
 	
 }

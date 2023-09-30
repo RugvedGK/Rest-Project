@@ -9,5 +9,8 @@
 <body>
 <h1>${pos}</h1>
 <h1>${neg}</h1>
+<a href="/hotel/add-item"><button>Add Item</button></a>
+<a href="/hotel/fetch-items"><button>View Item</button></a>
+<a href="">Logout</a>
 </body>
 </html>
