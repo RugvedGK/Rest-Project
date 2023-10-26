@@ -7,7 +7,13 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1 style="color: green">${pos}</h1>
-<h1 style="color: red">${neg}</h1>
+${neg}${pos}
+    <h1>Welcome to Our Restaurant</h1>
+    <div>
+        <a href="/customer/fetch-items"><button>View Menu</button></a>
+        
+        <a href="/customer/fetch-order"><button>View Orders</button></a>
+     <a href="/logout"><button>Logout</button></a>
+    </div>
 </body>
 </html>

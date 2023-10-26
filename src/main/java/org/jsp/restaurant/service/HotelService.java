@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import org.jsp.restaurant.dao.FoodItemDao;
 import org.jsp.restaurant.dao.HotelDao;
 import org.jsp.restaurant.dto.FoodItem;
 import org.jsp.restaurant.dto.Hotel;
@@ -31,13 +32,16 @@ public class HotelService {
 	@Autowired
 	SendMailLogic logic;
 	
+	@Autowired
+	FoodItemDao fooditemDao;
+	
 	public String register(Hotel hotel, ModelMap map) {
 	Hotel hotel1=dao.fetchByEmail(hotel.getEmail());
 	Hotel hotel2 = dao.fetchByMobile(hotel.getMobile());
 	if(hotel1 == null && hotel2 == null) {
 		int otp = new Random().nextInt(1000,9999);
 		hotel.setOtp(otp);
-		logic.send(hotel);
+		//logic.send(hotel);
 		hotel.setPassword(AES.encrypt(hotel.getPassword(), "123"));
 		dao.save(hotel);
 		map.put("id", hotel.getId());
@@ -96,7 +100,7 @@ public class HotelService {
 			return "HotelHome";
 	}
 
-	public String fetchItems(Hotel hotel, HttpSession session, ModelMap map) {
+	public String fetchItems(Hotel hotel, ModelMap map, HttpSession session) {
 		List<FoodItem> items = hotel.getItems();
 		if(items == null || items.isEmpty()) {
 			map.put("neg", "no items");
@@ -107,5 +111,44 @@ public class HotelService {
         return "HotelItems";
     }
 }
+
+	public String edit(int id, ModelMap map, Hotel hotel, HttpSession session) {
+		FoodItem items = fooditemDao.fetchById(id);
+		if(items == null) {
+			map.put("neg", "Something Went Worng");
+			return "Main";
+		}else {
+			map.put("items", items);
+			return "EditItem";
+		}
+	}
+
+	public String deleteProduct(int id, ModelMap map, Hotel hotel, HttpSession session) {
+		FoodItem items = fooditemDao.fetchById(id);
+		if(items == null) {
+			map.put("neg", "Something Went Wrong");
+			return "Main";
+		}
+		hotel.getItems().remove(items);
+		dao.save(hotel);
+		fooditemDao.delete(items);
+		map.put("pos", "Product Delete Success");
+		return fetchItems(dao.fetchById(hotel.getId()), map, session);
+	}
+
+	public String editProducts(FoodItem foodItem, MultipartFile image, ModelMap map, HttpSession session, Hotel hotel) throws IOException {
+		byte[] picture = new byte[image.getInputStream().available()];
+		image.getInputStream().read(picture);
+		
+		if(picture.length  == 0) {
+			foodItem.setPicture(fooditemDao.fetchById(foodItem.getId()).getPicture());
+		}else {
+			foodItem.setPicture(picture);
+		}
+		fooditemDao.save(foodItem);
+		map.put("pos", "Item Updated successfully");
+		session.setAttribute("hotel", dao.fetchById(hotel.getId()));
+		return fetchItems(dao.fetchById(hotel.getId()), map, session);
+	}
 }
 

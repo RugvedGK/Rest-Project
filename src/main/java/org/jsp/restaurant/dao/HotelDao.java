@@ -1,5 +1,7 @@
 package org.jsp.restaurant.dao;
 
+import java.util.List;
+
 import org.jsp.restaurant.dto.Hotel;
 import org.jsp.restaurant.repository.HotelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +22,8 @@ public class HotelDao  {
 		return repository.findByMobile(mobile);
 	}
 
-	public void save(Hotel hotel) {
-		repository.save(hotel);
+	public Hotel save(Hotel hotel) {
+		return repository.save(hotel);
 		
 	}
 
@@ -29,4 +31,9 @@ public class HotelDao  {
 	return repository.findById(id).orElse(null);
 		
 	}
+
+	public List<Hotel> fetchAll() {
+		return repository.findAll();
+	}
+
 }

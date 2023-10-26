@@ -12,6 +12,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -86,11 +87,56 @@ public class HotelController {
 	    public String fetchItems(HttpSession session, ModelMap map) {
 	    Hotel hotel = (Hotel) session.getAttribute("hotel");
 	        if (hotel != null) {
-	           return service.fetchItems(hotel,session, map);
+	           return service.fetchItems(hotel, map, session);
 	        } else {
 	            map.put("neg", "Invalid Session");
 	            return "HotelRegister";
 	        }
 	    }
+	 
+	 @GetMapping("/delete-products/{id}")
+	 public String deleteProduct(HttpSession session, @PathVariable int id, ModelMap map) {
+		 Hotel hotel = (Hotel) session.getAttribute("hotel");
+		 if(hotel != null) {
+			 return service.deleteProduct(id, map, hotel, session);
+		 }else {
+			 map.put("neg", "Invalid Session");
+			 return "HotelRegister";
+		 }
+	 }
+	 
+	 @GetMapping("/edit-products/{id}")
+	 public String editProduct(ModelMap map, @PathVariable int id, HttpSession session) {
+		 Hotel hotel = (Hotel) session.getAttribute("hotel");
+		 if(hotel != null) {
+			 return service.edit(id, map, hotel, session);
+		 }else {
+			 map.put("neg", "Invalid Session");
+			 return "HotelRegister";
+		 }
+	 }
+	 
+	 @PostMapping("/edit-item")
+	 public String editItem(FoodItem foodItem,@RequestParam MultipartFile image, ModelMap map, HttpSession session) throws IOException {
+		 Hotel hotel = (Hotel) session.getAttribute("hotel");
+		 if(hotel != null) {
+			 return service.editProducts(foodItem, image, map, session, hotel);
+		 }else {
+			 map.put("neg", "Invalid Session");
+			 return "HotelRegister";
+		 }
+		 
+	 }
+	 
+	 @GetMapping("/home")
+	 public String home(HttpSession session, ModelMap map) {
+		 Hotel hotel = (Hotel) session.getAttribute("hotel");
+		 if(hotel != null) {
+			 return "HotelHome";
+		 }else {
+			 map.put("neg", "Invalid Session");
+			 return "HotelRegister";
+		 }
+	 }
 }	
 

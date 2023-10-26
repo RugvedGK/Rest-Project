@@ -11,6 +11,6 @@
 <h1>${neg}</h1>
 <a href="/hotel/add-item"><button>Add Item</button></a>
 <a href="/hotel/fetch-items"><button>View Item</button></a>
-<a href="">Logout</a>
+<a href="/logout"><button>Logout</button></a>
 </body>
 </html>

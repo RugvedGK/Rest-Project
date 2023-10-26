@@ -17,6 +17,8 @@
     <title>Main Home Page</title>
 </head>
 <body>
+<h1 style="color: green">${pos}</h1>
+<h1 style="color: red">${neg}</h1>
 <div id="main">
       <div class="admin main">
         <a href="/admin"><i class="fa-solid fa-user fa-5x"></i></a><br />

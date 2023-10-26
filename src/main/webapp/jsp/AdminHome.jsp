@@ -7,12 +7,12 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>${pass}</h1>
+<h1>${pas}</h1>
 <h1>${fail}</h1>
 <h1>Admin Home</h1>
-    <button>Approve Products</button>
-    <button>View Hotel</button>
-    <button>View Customers</button>
+     <a href="/admin/fetch-items"><button>Approve Products</button></a>
+    <a href="/admin/fetch-hotels"><button>View Hotel</button></a>
+    <a href="/admin/fetch-customers"><button>View Customer</button></a>
     <a href="/logout"><button>Logout</button></a>
 </body>
 </html>

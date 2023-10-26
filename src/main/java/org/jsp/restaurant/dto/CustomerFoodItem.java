@@ -8,15 +8,12 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
-import jakarta.validation.constraints.DecimalMin;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Entity
 @Data
 @Component
-public class FoodItem {
+public class CustomerFoodItem {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
@@ -26,6 +23,7 @@ public class FoodItem {
 	@Lob
 	@Column(columnDefinition = "LONGBLOB")
 	private byte[] picture;
-	private int stock;
-	private boolean status;
+	private int quantity;
+	
+	
 }

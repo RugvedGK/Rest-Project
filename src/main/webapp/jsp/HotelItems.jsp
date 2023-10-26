@@ -11,11 +11,11 @@
 <body>
 	<table border="1">
 	<tr>
-	<th>Picture: </th>
-	<th>Name: </th>
-	<th>Description: </th>
-	<th>Stocks: </th>
-	<th>Price: </th>
+	<th>Picture</th>
+	<th>Name</th>
+	<th>Description</th>
+	<th>Stocks</th>
+	<th>Price</th>
 	<th>Edit</th>
 	<th>Delete</th>
 	</tr>
@@ -27,10 +27,12 @@
 	<th>${items.getDescription()}</th>
 	<th>${items.getStock()} </th>
 	<th>${items.getPrice()} </th>
-	<th>Edit</th>
-	<th>Delete</th>
+	<th><a href="/hotel/edit-products/${items.getId()}"><button>Edit</button></a></th>
+	<th><a href="/hotel/delete-products/${items.getId()}"><button>Delete</button></a></th>
 	</tr>
 	</c:forEach>
 	</table>
+	<br>
+	<a href="/hotel/home"><button>Back</button></a>
 </body>
 </html>
